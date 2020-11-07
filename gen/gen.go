@@ -1,6 +1,7 @@
 package gen
 
 import (
+	"math"
 	"math/rand"
 	"time"
 
@@ -25,4 +26,13 @@ func RndRelPos(rs *rand.Rand) mat.RelVec {
 	y := 1 - rs.Float32()*2
 	z := 1 - rs.Float32()*2
 	return mat.RelVec{X: x, Y: y, Z: z}
+}
+
+// v should be a positive value between 0 and 1
+func RndN(r int, v float64) int {
+	n := float64(RND.Intn(r))
+	o := float64(r) / v
+	e := n * n / o
+	e = math.Exp(float64(-1.0 * e))
+	return int(float64(r) * e)
 }

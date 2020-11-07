@@ -56,3 +56,33 @@ func TestRndRelPos(t *testing.T) {
 		})
 	}
 }
+
+func TestRndN(t *testing.T) {
+	type args struct {
+		r int
+		v float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{"test", args{16, 0.25}, 8.0},
+		{"test", args{16, 0.50}, 8.0},
+		{"test", args{16, 0.1}, 8.0},
+	}
+	for _, tt := range tests {
+		total := 0
+		rounds := 10000
+		for i := 0; i < rounds; i++ {
+			t.Run(tt.name, func(t *testing.T) {
+				got := RndN(tt.args.r, tt.args.v)
+				total += got
+			})
+		}
+		avg := float64(total) / float64(rounds)
+		if avg > tt.want {
+			t.Errorf("gaussian average %f above %f for requested varibility of %f\n", avg, tt.want, tt.args.v)
+		}
+	}
+}
