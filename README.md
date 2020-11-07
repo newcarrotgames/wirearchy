@@ -11,4 +11,4 @@ Here are some tests of the data structures and methods that will be used to gene
   <img src="test2.jpg">
 </p>
 
-The structures above are purely random structures, but without the abilty to view what generated it's going to be difficult to judge whether or not anything is working.
+These are purely random structures, but without the abilty to view what generated it's going to be difficult to judge whether or not anything is working.
