@@ -25,34 +25,26 @@ func (n *Node) Form(area mat.Dim3, material int) form.Form {
 
 type Plan struct {
 	Name     string
-	BaseName string
+	BaseName string // name of plan this one was derived from
 	Created  time.Time
-	RootNode *Node
+	Nodes    []*Node
 }
 
-func New() *Plan {
+func New(name string, nodes []*Node) *Plan {
 	return &Plan{
-		Name:    Name(),
+		Name:    name,
 		Created: time.Now(),
 	}
 }
 
-func NewWithRoot(root *Node) Plan {
-	return Plan{
-		Name:     Name(),
-		Created:  time.Now(),
-		RootNode: root,
-	}
-}
-
-// Returns Arr3 of "final" form according to structure defined by nodes.
+// Returns Arr3 of "final" form according to Plan's relative structure definition
 func (p *Plan) Build(size mat.Dim3) *mat.Arr3 {
-	return parseNodes(p.RootNode, size)
-}
-
-func parseNodes(node *Node, size mat.Dim3) *mat.Arr3 {
 	a := mat.NewArr3(size)
-	recurse(&a, node)
+	if p.Nodes != nil || len(p.Nodes) > 0 {
+		for _, n := range p.Nodes {
+			recurse(&a, n)
+		}
+	}
 	return &a
 }
 
@@ -67,4 +59,8 @@ func recurse(a *mat.Arr3, node *Node) {
 
 func material() int {
 	return 1
+}
+
+func (p *Plan) Age() time.Duration {
+	return time.Now().Sub(p.Created)
 }
