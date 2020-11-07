@@ -35,15 +35,19 @@ func rndMaterial() int {
 	return gen.RND.Intn(11) + 2
 }
 
-func getNewPoi() form.Room {
+func getNewPoi() form.Form {
 	// create poi and add random room
-	poi := form.NewBase(mat.Dim3{W: 32, H: 32, D: 32}, 1)
-	n := gen.RND.Intn(100) + 10
-	var rooms []form.Room
+	poi := form.Base(mat.Dim3{W: 32, H: 32, D: 32}, 1)
+	// todo: make this something like n/2 +/- n/variability or
+	// maybe the random int is the x value of a guassian function and it just returns the y
+	n := gen.RND.Intn(20) + 2
+	var rooms []form.Form
 	for i := 0; i < n; i++ {
-		s := gen.RND.Intn(8) + 4
-		pos := mat.Vec3{X: gen.RND.Intn(28) + 2, Y: s/2 + 1, Z: gen.RND.Intn(28) + 2}
-		room := form.NewRoom(mat.Dim3{W: s, H: s, D: s}, rndMaterial())
+		w := gen.RND.Intn(12) + 2
+		h := gen.RND.Intn(12) + 2
+		d := gen.RND.Intn(12) + 2
+		pos := mat.Vec3{X: gen.RND.Intn(28) + 2, Y: h/2 + 1, Z: gen.RND.Intn(28) + 2}
+		room := form.Room(mat.Dim3{W: w, H: h, D: d}, rndMaterial())
 		room.Vec3 = pos
 		rooms = append(rooms, room)
 	}
@@ -51,15 +55,15 @@ func getNewPoi() form.Room {
 	// toss overlapping rooms for now
 	for _, r := range rooms {
 		empty := true
-		r.Find(func(p mat.Vec3, val int) bool {
-			q := r.Offset().Add(p.Add(r.Vec3))
-			if !poi.Oob(q) {
-				empty = poi.Get(q) == 0
-			} else {
-				empty = false
-			}
-			return empty
-		})
+		// r.Find(func(p mat.Vec3, val int) bool {
+		// 	q := r.Offset().Add(p.Add(r.Vec3))
+		// 	if !poi.Oob(q) {
+		// 		empty = poi.Get(q) == 0
+		// 	} else {
+		// 		empty = false
+		// 	}
+		// 	return empty
+		// })
 		if empty {
 			poi.Inset(r.Arr3, r.Vec3)
 		}
