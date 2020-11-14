@@ -2,7 +2,9 @@ package mat
 
 // Relative vector expressed as 0.1
 type RelVec struct {
-	X, Y, Z float32
+	X float32
+	Y float32
+	Z float32
 }
 
 func (r RelVec) Pos(d Dim3) Vec3 {
@@ -14,7 +16,9 @@ func (r RelVec) Pos(d Dim3) Vec3 {
 }
 
 type RelDim struct {
-	W, H, D float32
+	W float32
+	H float32
+	D float32
 }
 
 func (r RelDim) Size(d Dim3) Dim3 {

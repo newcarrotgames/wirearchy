@@ -26,6 +26,8 @@ namespace mat {
     }
     class Dim3 << (S,Aquamarine) >> {
         + W int
+        + H int
+        + D int
 
         + Size() int
         + Oob(v Vec3) bool
@@ -34,18 +36,24 @@ namespace mat {
     }
     class RelDim << (S,Aquamarine) >> {
         + W float32
+        + H float32
+        + D float32
 
         + Size(d Dim3) Dim3
 
     }
     class RelVec << (S,Aquamarine) >> {
         + X float32
+        + Y float32
+        + Z float32
 
         + Pos(d Dim3) Vec3
 
     }
     class Vec3 << (S,Aquamarine) >> {
         + X int
+        + Y int
+        + Z int
 
         + Add(w Vec3) Vec3
         + IsNeg() bool

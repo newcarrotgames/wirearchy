@@ -1,7 +1,9 @@
 package mat
 
 type Vec3 struct {
-	X, Y, Z int
+	X int
+	Y int
+	Z int
 }
 
 func (v Vec3) Add(w Vec3) Vec3 {

@@ -69,7 +69,7 @@ func TestRndN(t *testing.T) {
 	}{
 		{"test", args{16, 0.25}, 8.0},
 		{"test", args{16, 0.50}, 8.0},
-		{"test", args{16, 0.1}, 8.0},
+		{"test", args{16, 0.1}, 11.0},
 	}
 	for _, tt := range tests {
 		total := 0

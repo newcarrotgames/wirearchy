@@ -2,7 +2,9 @@ package mat
 
 // Dim3
 type Dim3 struct {
-	W, H, D int
+	W int
+	H int
+	D int
 }
 
 // Returns d's volume
