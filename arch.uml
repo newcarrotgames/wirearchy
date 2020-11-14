@@ -1,0 +1,92 @@
+@startuml
+namespace form {
+    class Form << (S,Aquamarine) >> {
+    }
+    class form.Type << (T, #FF7700) >>  {
+    }
+}
+"mat.Arr3" *-- "form.Form"
+"mat.Vec3" *-- "form.Form"
+
+
+namespace mat {
+    class Arr3 << (S,Aquamarine) >> {
+        + Dat []int
+
+        - i(v Vec3) int
+        - v(i int) Vec3
+        - blend(b Arr3, p Vec3, mode BlendMode) 
+
+        + Get(v Vec3) int
+        + Set(v Vec3, val int) 
+        + Each(itr Arr3Itr) 
+        + Find(itr Arr3ItrBool) 
+        + Inset(b Arr3, p Vec3) 
+
+    }
+    class Dim3 << (S,Aquamarine) >> {
+        + W int
+
+        + Size() int
+        + Oob(v Vec3) bool
+        + Offset() Vec3
+
+    }
+    class RelDim << (S,Aquamarine) >> {
+        + W float32
+
+        + Size(d Dim3) Dim3
+
+    }
+    class RelVec << (S,Aquamarine) >> {
+        + X float32
+
+        + Pos(d Dim3) Vec3
+
+    }
+    class Vec3 << (S,Aquamarine) >> {
+        + X int
+
+        + Add(w Vec3) Vec3
+        + IsNeg() bool
+
+    }
+    class mat.Arr3Itr << (T, #FF7700) >>  {
+    }
+    class mat.Arr3ItrBool << (T, #FF7700) >>  {
+    }
+    class mat.BlendMode << (T, #FF7700) >>  {
+    }
+}
+"mat.Dim3" *-- "mat.Arr3"
+
+
+namespace plan {
+    class Node << (S,Aquamarine) >> {
+        + Root *Node
+        + Nodes []*Node
+
+        + Add(a *Node) 
+        + Form(area mat.Dim3, material int) form.Form
+
+    }
+    class Plan << (S,Aquamarine) >> {
+        + Name string
+        + BaseName string
+        + Created time.Time
+        + Nodes []*Node
+
+        + Build(size mat.Dim3) *mat.Arr3
+        + Age() time.Duration
+
+    }
+}
+"mat.RelDim" *-- "plan.Node"
+"mat.RelVec" *-- "plan.Node"
+
+
+"__builtin__.string" #.. "form.Type"
+"__builtin__.uint8" #.. "mat.BlendMode"
+"mat.<font color=blue>func</font>(Vec3, int) " #.. "mat.Arr3Itr"
+"mat.<font color=blue>func</font>(Vec3, int) bool" #.. "mat.Arr3ItrBool"
+@enduml
