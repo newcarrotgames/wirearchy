@@ -19,5 +19,5 @@ func (d Dim3) Oob(v Vec3) bool {
 
 // Returns center's offset vector
 func (d Dim3) Offset() Vec3 {
-	return Vec3{-d.W / 2, -d.H / 2, -d.D / 2}
+	return Vec3{d.W / 2, d.H / 2, d.D / 2}
 }

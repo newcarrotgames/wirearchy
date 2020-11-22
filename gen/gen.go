@@ -15,16 +15,16 @@ var (
 
 // eventually, use adjusted weights rather than purely random values
 func RndRelDim(rs *rand.Rand) mat.RelDim {
-	w := rs.Float32()
-	h := rs.Float32()
-	d := rs.Float32()
+	w := rs.Float64()
+	h := rs.Float64()
+	d := rs.Float64()
 	return mat.RelDim{W: w, H: h, D: d}
 }
 
 func RndRelPos(rs *rand.Rand) mat.RelVec {
-	x := 1 - rs.Float32()*2
-	y := 1 - rs.Float32()*2
-	z := 1 - rs.Float32()*2
+	x := 1 - rs.Float64()*2
+	y := 1 - rs.Float64()*2
+	z := 1 - rs.Float64()*2
 	return mat.RelVec{X: x, Y: y, Z: z}
 }
 

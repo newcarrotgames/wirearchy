@@ -1,6 +1,8 @@
 package mat
 
-import "log"
+import (
+	"log"
+)
 
 // Arr3 is the main type for storing arrays of voxels
 type Arr3 struct {
@@ -29,7 +31,7 @@ func (a Arr3) Get(v Vec3) int {
 }
 
 // Sets voxel at v to val
-func (a Arr3) Set(v Vec3, val int) {
+func (a *Arr3) Set(v Vec3, val int) {
 	a.Dat[a.i(v)] = val
 }
 
@@ -70,20 +72,19 @@ const (
 	AVERAGE   BlendMode = 3 // writes the average of old and new values
 )
 
-// Writes b into a
-// todo: orientation?
-// todo: always OVERWRITE
-func (a Arr3) Inset(b Arr3, p Vec3) {
-	a.blend(b, p, OVERWRITE)
+// Writes b into a at pos p (relative to a)
+func (a Arr3) Inset(b Arr3, p Vec3) Arr3 {
+	// todo: orientation?
+	// todo: always IGNORE
+	return a.blend(b, p, OVERWRITE)
 }
 
-// this isn't neccessary at this point
-func (a Arr3) blend(b Arr3, p Vec3, mode BlendMode) {
+func (a Arr3) blend(b Arr3, p Vec3, mode BlendMode) Arr3 {
 	b.Each(func(v Vec3, bVal int) {
 		if bVal == 0 {
 			return
 		}
-		pos := v.Add(p).Add(b.Offset())
+		pos := v.Add(p)
 		if !a.Oob(pos) {
 			if mode == OVERWRITE {
 				a.Set(pos, bVal)
@@ -94,10 +95,10 @@ func (a Arr3) blend(b Arr3, p Vec3, mode BlendMode) {
 				} else if mode == AVERAGE {
 					a.Set(pos, (aVal+bVal)/2)
 				} else {
-					// unknown blend mode
 					log.Printf("unknown blend mode: %d", mode)
 				}
 			}
 		}
 	})
+	return a
 }

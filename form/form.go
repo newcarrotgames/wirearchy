@@ -7,6 +7,7 @@ import (
 type Type string
 
 type Form struct {
+	PlanName *string
 	mat.Arr3
 	mat.Vec3
 }
@@ -34,5 +35,12 @@ func Base(s mat.Dim3, material int) Form {
 			r.Set(p, material)
 		}
 	})
+	return r
+}
+
+func Empty(s mat.Dim3, material int) Form {
+	r := Form{}
+	r.Arr3.Dim3 = s
+	r.Arr3.Dat = make([]int, s.Size())
 	return r
 }

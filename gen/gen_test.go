@@ -26,7 +26,7 @@ func TestRndRelDim(t *testing.T) {
 			fmt.Printf("got: %+v\n", got)
 			d := got.Size(d16)
 			fmt.Printf("d: %+v\n", d)
-			want := int(float32(d16.D) * got.D)
+			want := int(float64(d16.D) * got.D)
 			if d.D != want {
 				fmt.Printf("incorrect depth: %+v - %+v\n", d, got)
 			}
