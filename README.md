@@ -4,13 +4,15 @@
 
 ### My latest over-ambitious project to create a game where all the content is generated using evolutionary algorithms.
 
-UML Diagram of the components so far:
+First working POI test:
 
-<img src="arch.svg">
+<p align="center">
+  <img src="update1.png">
+</p>
 
 Hopefully this system of components can model most of the content in the game. So far I've only really considered structures for POI generation but will eventually need to modify this framework to generate mobs.
 
-Here are some tests of the data structures and methods that will be used to generate POI structures within the game:
+Tests of the data structures and methods that will be used to generate POI structures within the game:
 
 <p align="center">
   <img src="test.jpg">
