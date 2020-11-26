@@ -95,18 +95,17 @@
         async function showPrefab() {
             // render poi
             get(`/api`).then((prefab) => {
-                console.log(prefab);
                 const x_offset = (blockSize * prefab.W) / 2;
                 const z_offset = (blockSize * prefab.D) / 2;
                 const y_offset = 0;
+
+                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, view_depth);
+                camera.position.z = 3000;
 
                 init();
                 animate();
 
                 function init() {
-                    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, view_depth);
-                    camera.position.z = 3000;
-
                     scene = new THREE.Scene();
                     scene.background = skyBoxTexture;
 
@@ -162,7 +161,7 @@
                     // setup renderer and controls
                     renderer.setPixelRatio(window.devicePixelRatio);
                     renderer.setSize(window.innerWidth, window.innerHeight);
-                    document.body.appendChild(renderer.domElement);
+                    $('game').appendChild(renderer.domElement);
                     controls = new OrbitControls(camera, renderer.domElement);
                     controls.update();
 
@@ -222,7 +221,13 @@
         // "main"
         showPrefab();
 
+        $('refresh').addEventListener('click', () => showPrefab());
+
     </script>
+    <div id="game"></div>
+    <div id="hud">
+        <button id="refresh">new poi</button>
+    </div>
 </body>
 
 </html>

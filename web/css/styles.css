@@ -12,10 +12,11 @@ td {
     width: 800px;
 }
 
-#tts-select {
+#hud {
     position: absolute;
     left: 10px;
     top: 10px;
+    padding: 10px;
 }
 
 #scale-sliders {

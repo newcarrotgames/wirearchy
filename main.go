@@ -9,7 +9,6 @@ import (
 	"github.com/newcarrotgames/wirearchy/form"
 	"github.com/newcarrotgames/wirearchy/gen"
 	"github.com/newcarrotgames/wirearchy/mat"
-	"github.com/newcarrotgames/wirearchy/plan"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -83,14 +82,10 @@ var singleNodePlan = []byte(`{
 
 func getNewPoi() form.Form {
 	size := mat.Dim3{W: 15, H: 15, D: 15}
-	p, err := plan.Decode(singleNodePlan)
-	if err != nil {
-		panic(err)
-	}
-	f := p.Build(size)
-	poi := form.Base(size, 1)
-	poi.Inset(f.Arr3, mat.Vec3{})
-	return poi
+	a := mat.NewArr3(mat.SqDim3(30))
+	p := gen.RndBasePlan(gen.RND, gen.RndEvolution())
+	f := p.Build(a, size)
+	return f
 }
 
 func main() {

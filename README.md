@@ -61,11 +61,12 @@ and produce a voxel object like so:
 
 Hopefully this system of components can model most of the content in the game. So far I've only really considered structures for POI generation but will eventually need to modify this framework to generate mobs.
 
-Tests of the data structures and methods that will be used to generate POI structures within the game:
+## Creating a crude GAN generator/discrimator
+
+Can create building-ish structures now using a random generator:
 
 <p align="center">
-  <img src="test.jpg">
-  <img src="test2.jpg">
+  <img src="update2.png">
 </p>
 
-These are purely random structures, but without the abilty to view what generated it's going to be difficult to judge whether or not anything is working.
+Working on a discriminator now.

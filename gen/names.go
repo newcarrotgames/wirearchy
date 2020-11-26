@@ -1,12 +1,10 @@
-package plan
+package gen
 
 import (
 	"bufio"
 	"fmt"
 	"os"
 	"strings"
-
-	"github.com/newcarrotgames/wirearchy/gen"
 )
 
 // silly naming scheme
@@ -28,6 +26,6 @@ func Name() string {
 	}
 
 	// get 3 random words
-	i, j, k := gen.RND.Intn(len(words)), gen.RND.Intn(len(words)), gen.RND.Intn(len(words))
+	i, j, k := RND.Intn(len(words)), RND.Intn(len(words)), RND.Intn(len(words))
 	return fmt.Sprintf("%s%s%s", words[i], words[j], words[k])
 }

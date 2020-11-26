@@ -15,10 +15,16 @@ type Plan struct {
 	Nodes    []*Node
 }
 
+func Blank() *Plan {
+	return &Plan{
+		Created: time.Now(),
+	}
+}
+
 func New(nodes []*Node) *Plan {
 	return &Plan{
-		Name:    Name(),
 		Created: time.Now(),
+		Nodes:   nodes,
 	}
 }
 
@@ -32,23 +38,25 @@ func Decode(data []byte) (Plan, error) {
 	if err != nil {
 		return p, err
 	}
-	if p.Name == "" {
-		p.Name = Name()
-	}
 	return p, err
 }
 
 // Returns Arr3 of "final" form according to Plan's relative structure definition
-func (p *Plan) Build(size mat.Dim3) form.Form {
+func (p *Plan) Build(a mat.Arr3, size mat.Dim3) form.Form {
+	root := form.Form{
+		PlanName: &p.Name,
+		Arr3:     a,
+		Vec3:     mat.Vec3{},
+	}
 	result := form.Form{
 		PlanName: &p.Name,
 		Arr3:     mat.NewArr3(size),
 		Vec3:     mat.Vec3{},
 	}
 	for _, n := range p.Nodes {
-		n.Build(&result, &result)
+		n.Build(&root, &result)
 	}
-	return result
+	return root
 }
 
 func (p *Plan) Age() time.Duration {

@@ -21,3 +21,7 @@ func (d Dim3) Oob(v Vec3) bool {
 func (d Dim3) Offset() Vec3 {
 	return Vec3{d.W / 2, d.H / 2, d.D / 2}
 }
+
+func SqDim3(s int) Dim3 {
+	return Dim3{s, s, s}
+}
