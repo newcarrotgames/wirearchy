@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/newcarrotgames/wirearchy/dis"
 	"github.com/newcarrotgames/wirearchy/form"
 	"github.com/newcarrotgames/wirearchy/gen"
 	"github.com/newcarrotgames/wirearchy/mat"
@@ -81,11 +82,21 @@ var singleNodePlan = []byte(`{
 }`)
 
 func getNewPoi() form.Form {
+	var leader form.Form
+	best := 0.0
+	d := dis.SimpleDiscriminator{}
 	size := mat.Dim3{W: 15, H: 15, D: 15}
-	a := mat.NewArr3(mat.SqDim3(30))
-	p := gen.RndBasePlan(gen.RND, gen.RndEvolution())
-	f := p.Build(a, size)
-	return f
+	for i := 0; i < 1000; i++ {
+		a := mat.NewArr3(mat.SqDim3(30))
+		p := gen.RndBasePlan(gen.RND, gen.RndEvolution())
+		f := p.Build(a, size)
+		score := d.Discriminate(&f)
+		if score > best {
+			leader = f
+			best = score
+		}
+	}
+	return leader
 }
 
 func main() {

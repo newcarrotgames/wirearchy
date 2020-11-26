@@ -69,4 +69,20 @@ Can create building-ish structures now using a random generator:
   <img src="update2.png">
 </p>
 
-Working on a discriminator now.
+A simple discriminator has been implemented using this formula: total blocks / possible size. A score of 1 means all voxels within the given space are filled in. Here's the output of that discriminator after 1000 generations:
+
+<p align="center">
+  <img src="update3.png">
+</p>
+
+Next few discriminator ideas:
+
+* One that gives high scores to mid-range structures
+* Cost-based (higher grade materials)
+* Somehow determine if the structure is easy to attack/defend
+* Efficient structures (easy to travel within)
+
+Needed generator improvements:
+
+* Doors/windows
+* Rooms shouldn't generate blocks inside other rooms

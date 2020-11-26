@@ -2,8 +2,6 @@ package mat
 
 import (
 	"log"
-
-	"github.com/newcarrotgames/wirearchy/util"
 )
 
 // Arr3 is the main type for storing arrays of voxels
@@ -79,7 +77,6 @@ func (a *Arr3) Inset(b Arr3, p Vec3) { // todo: blend mode
 	// convert p to the "real" position
 	pos := p.Add(a.Offset().Sub(b.Offset()))
 	pos.Y = 0
-	util.Dbg("real pos: ", pos)
 	a.blend(b, pos, OVERWRITE)
 }
 
