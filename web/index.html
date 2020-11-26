@@ -84,6 +84,7 @@
         ].map((textureFilename) => {
             var texture = new THREE.TextureLoader().load(textureFilename);
             texture.magFilter = THREE.NearestFilter;
+            texture.anisotropy = renderer.getMaxAnisotropy();
             return new THREE.MeshLambertMaterial({ map: texture, side: THREE.DoubleSide });            
         });
 

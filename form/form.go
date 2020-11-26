@@ -38,7 +38,7 @@ func Base(s mat.Dim3, material int) Form {
 	return r
 }
 
-func Empty(s mat.Dim3, material int) Form {
+func Empty(s mat.Dim3) Form {
 	r := Form{}
 	r.Arr3.Dim3 = s
 	r.Arr3.Dat = make([]int, s.Size())

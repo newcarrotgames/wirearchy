@@ -6,24 +6,7 @@ import (
 
 	"github.com/newcarrotgames/wirearchy/form"
 	"github.com/newcarrotgames/wirearchy/mat"
-	"github.com/newcarrotgames/wirearchy/util"
 )
-
-type Node struct {
-	mat.RelDim
-	mat.RelVec
-	Root  *Node
-	Nodes []*Node
-}
-
-func (n *Node) Add(a *Node) {
-	n.Nodes = append(n.Nodes, a)
-	a.Root = n
-}
-
-func (n *Node) Form(area mat.Dim3, material int) form.Form {
-	return form.Room(n.Size(area), material)
-}
 
 type Plan struct {
 	Name     string
@@ -32,9 +15,9 @@ type Plan struct {
 	Nodes    []*Node
 }
 
-func New(name string, nodes []*Node) *Plan {
+func New(nodes []*Node) *Plan {
 	return &Plan{
-		Name:    name,
+		Name:    Name(),
 		Created: time.Now(),
 	}
 }
@@ -49,40 +32,23 @@ func Decode(data []byte) (Plan, error) {
 	if err != nil {
 		return p, err
 	}
+	if p.Name == "" {
+		p.Name = Name()
+	}
 	return p, err
 }
 
 // Returns Arr3 of "final" form according to Plan's relative structure definition
 func (p *Plan) Build(size mat.Dim3) form.Form {
-	a := mat.NewArr3(size)
-	if p.Nodes != nil || len(p.Nodes) > 0 {
-		for _, n := range p.Nodes {
-			recurse(&a, n)
-		}
-	}
-	return form.Form{
+	result := form.Form{
 		PlanName: &p.Name,
-		Arr3:     a,
-		Vec3:     mat.Vec3{}}
-}
-
-func recurse(a *mat.Arr3, node *Node) {
-	size := node.Size(a.Dim3)
-	pos := node.RelVec.Pos(size)
-	util.Dbg("------------------------------------------------------")
-	util.Dbg(pos)
-	util.Dbg("------------------------------------------------------")
-	f := form.Room(size, material())
-	a.Inset(f.Arr3, pos)
-	if node.Nodes != nil {
-		for _, n := range node.Nodes {
-			recurse(a, n)
-		}
+		Arr3:     mat.NewArr3(size),
+		Vec3:     mat.Vec3{},
 	}
-}
-
-func material() int {
-	return 2
+	for _, n := range p.Nodes {
+		n.Build(&result, &result)
+	}
+	return result
 }
 
 func (p *Plan) Age() time.Duration {

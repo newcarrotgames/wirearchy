@@ -23,7 +23,6 @@ func Name() string {
 		for scanner.Scan() {
 			word := scanner.Text()
 			fword := fmt.Sprintf("%s%s", strings.ToUpper(word[:1]), strings.ToLower(word[1:]))
-			fmt.Println(fword)
 			words = append(words, fword)
 		}
 	}

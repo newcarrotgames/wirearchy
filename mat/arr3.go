@@ -2,6 +2,8 @@ package mat
 
 import (
 	"log"
+
+	"github.com/newcarrotgames/wirearchy/util"
 )
 
 // Arr3 is the main type for storing arrays of voxels
@@ -72,14 +74,16 @@ const (
 	AVERAGE   BlendMode = 3 // writes the average of old and new values
 )
 
-// Writes b into a at pos p (relative to a)
-func (a Arr3) Inset(b Arr3, p Vec3) Arr3 {
-	// todo: orientation?
-	// todo: always IGNORE
-	return a.blend(b, p, OVERWRITE)
+// Writes b into a at pos p (p is the position of b's origin)
+func (a *Arr3) Inset(b Arr3, p Vec3) { // todo: blend mode
+	// convert p to the "real" position
+	pos := p.Add(a.Offset().Sub(b.Offset()))
+	pos.Y = 0
+	util.Dbg("real pos: ", pos)
+	a.blend(b, pos, OVERWRITE)
 }
 
-func (a Arr3) blend(b Arr3, p Vec3, mode BlendMode) Arr3 {
+func (a *Arr3) blend(b Arr3, p Vec3, mode BlendMode) {
 	b.Each(func(v Vec3, bVal int) {
 		if bVal == 0 {
 			return
@@ -100,5 +104,4 @@ func (a Arr3) blend(b Arr3, p Vec3, mode BlendMode) Arr3 {
 			}
 		}
 	})
-	return a
 }

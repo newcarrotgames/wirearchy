@@ -11,11 +11,11 @@ type RelVec struct {
 
 func (r RelVec) Pos(d Dim3) Vec3 {
 	// find d's origin
-	return d.Offset().Add(Vec3{
+	return Vec3{
 		X: int(math.Floor(r.X * float64(d.W/2.0))),
 		Y: int(math.Floor(r.Y * float64(d.H/2.0))),
 		Z: int(math.Floor(r.Z * float64(d.D/2.0))),
-	})
+	}
 }
 
 type RelDim struct {

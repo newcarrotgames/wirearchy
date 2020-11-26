@@ -13,6 +13,7 @@ func TestRelVec_Pos(t *testing.T) {
 		want Vec3
 	}{
 		{"exact center", RelVec{}, Dim3{5, 5, 5}, Vec3{2, 2, 2}},
+		{"exact center", RelVec{}, Dim3{9, 9, 9}, Vec3{4, 4, 4}},
 		{"positive half", RelVec{0.5, 0.5, 0.5}, Dim3{10, 10, 10}, Vec3{7, 7, 7}},
 		{"negative half", RelVec{-0.5, -0.5, -0.5}, Dim3{10, 10, 10}, Vec3{2, 2, 2}},
 	}
