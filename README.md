@@ -81,7 +81,7 @@ Second discriminator gives higher scores to structures that cost more resources 
   <img src="update4.png">
 </p>
 
-Next few discriminator ideas (that I'm completely unsure how to implement):
+Next few discriminator ideas (unsure of real implementation):
 
 * One that gives high scores to mid-range structures
 * Somehow determine if the structure is easy to attack/defend
