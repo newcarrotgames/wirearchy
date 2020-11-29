@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/newcarrotgames/wirearchy/dis"
 	"github.com/newcarrotgames/wirearchy/mat"
 	"github.com/newcarrotgames/wirearchy/plan"
 )
@@ -43,7 +44,7 @@ func RndNode(rs *rand.Rand, e Evolution) *plan.Node {
 	n := &plan.Node{
 		RelDim:   RndRelDim(rs),
 		RelVec:   RndRelPos(rs),
-		Material: rs.Intn(4) + 2,
+		Material: rs.Intn(dis.NUMBER_OF_MATERIALS) + 2,
 	}
 
 	if rs.Intn(10) > 7 {

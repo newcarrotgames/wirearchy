@@ -28,6 +28,7 @@ func TestArr3_Inset(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+
 			tt.b.Set(v1, 1)
 			tt.a.Inset(tt.b, tt.p)
 			fmt.Println("a: " + aToS(tt.a))

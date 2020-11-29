@@ -84,9 +84,9 @@ var singleNodePlan = []byte(`{
 func getNewPoi() form.Form {
 	var leader form.Form
 	best := 0.0
-	d := dis.SimpleDiscriminator{}
-	size := mat.Dim3{W: 15, H: 15, D: 15}
-	for i := 0; i < 1000; i++ {
+	d := dis.CostDiscriminator{}
+	size := mat.Dim3{W: 13, H: 13, D: 13}
+	for i := 0; i < 10000; i++ {
 		a := mat.NewArr3(mat.SqDim3(30))
 		p := gen.RndBasePlan(gen.RND, gen.RndEvolution())
 		f := p.Build(a, size)

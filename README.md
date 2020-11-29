@@ -75,12 +75,20 @@ A simple discriminator has been implemented using this formula: total blocks / p
   <img src="update3.png">
 </p>
 
-Next few discriminator ideas:
+Second discriminator gives higher scores to structures that cost more resources than others. Iron/stone blocks are considered to be costlier than wood or dirt.
+
+<p align="center">
+  <img src="update4.png">
+</p>
+
+Next few discriminator ideas (that I'm completely unsure how to implement):
 
 * One that gives high scores to mid-range structures
-* Cost-based (higher grade materials)
 * Somehow determine if the structure is easy to attack/defend
-* Efficient structures (easy to travel within)
+* Efficient structures
+* Roomy (most interior space)
+* Easy to travel within
+* Maximized material usage (large but fewer forms)
 
 Needed generator improvements:
 
