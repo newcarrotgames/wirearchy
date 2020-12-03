@@ -1,8 +1,15 @@
 package form
 
 import (
+	"math"
+	"math/rand"
+
 	"github.com/newcarrotgames/wirearchy/mat"
+	"github.com/newcarrotgames/wirearchy/tex"
+	opensimplex "github.com/ojrac/opensimplex-go"
 )
+
+var noise = opensimplex.New(rand.Int63())
 
 type Type string
 
@@ -35,6 +42,20 @@ func Base(s mat.Dim3, material int) Form {
 			r.Set(p, material)
 		}
 	})
+	return r
+}
+
+func Terrain(s mat.Dim3) Form {
+	w, h, r := s.W, s.H, Empty(s)
+	for y := 0; y < h; y++ {
+		for x := 0; x < w; x++ {
+			xFloat := float64(x) / float64(w)
+			yFloat := float64(y) / float64(h)
+			nh := noise.Eval2(xFloat, yFloat)
+			fh := int(math.Floor(nh*(float64(h)/2) + float64(h)/2))
+			r.Set(mat.Vec3{x, fh / 4, y}, int(tex.Grass))
+		}
+	}
 	return r
 }
 

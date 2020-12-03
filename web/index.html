@@ -69,7 +69,8 @@
         });
 
         var materials = [
-            'tiles/blocks/dirt.png',
+            // 'tiles/blocks/dirt.png',
+            'tiles/blocks/grass_top.png',
             'tiles/blocks/planks_spruce.png',
             'tiles/blocks/planks_jungle.png',
             'tiles/blocks/planks_oak.png',
@@ -83,7 +84,7 @@
         ].map((textureFilename) => {
             var texture = new THREE.TextureLoader().load(textureFilename);
             texture.magFilter = THREE.NearestFilter;
-            texture.anisotropy = renderer.getMaxAnisotropy();
+            texture.minFilter = THREE.NearestFilter;
             return new THREE.MeshLambertMaterial({ map: texture, side: THREE.DoubleSide });            
         });
 
@@ -116,17 +117,6 @@
                     const groundColor = 0xB97A20;  // brownish orange
                     const sunlight = new THREE.HemisphereLight(skyColor, groundColor, intensity);
                     scene.add(sunlight);
-
-                    // add ground
-                    var groundGeometry = new THREE.BoxGeometry(blockSize * 128, blockSize, blockSize * 128);
-                    var groundTexture = new THREE.TextureLoader().load('tiles/blocks/grass_top.png');
-                    groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-                    groundTexture.repeat.set(128, 128);
-                    groundTexture.magFilter = THREE.NearestFilter;
-                    var groundMaterial = new THREE.MeshLambertMaterial({ map: groundTexture, side: THREE.DoubleSide });
-                    const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
-                    groundMesh.position.set(0, -100, 0);
-                    scene.add(groundMesh);
 
                     var boxGeo = new THREE.BoxGeometry(blockSize, blockSize, blockSize);
                     var poiGeo = new THREE.Geometry();

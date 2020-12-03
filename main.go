@@ -17,21 +17,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, string(bb))
 }
 
-/*
-'tiles/blocks/dirt.png',
-'tiles/blocks/stonebrick.png',
-'tiles/blocks/stone_slab_top.png',
-'tiles/blocks/cobblestone.png',
-'tiles/blocks/brick.png',
-'tiles/blocks/nether_brick.png',
-'tiles/blocks/planks_acacia.png',
-'tiles/blocks/planks_big_oak.png',
-'tiles/blocks/planks_jungle.png',
-'tiles/blocks/planks_oak.png',
-'tiles/blocks/planks_spruce.png',
-'tiles/blocks/iron_block.png',
-*/
-
 func rndMaterial() int {
 	return gen.RND.Intn(11) + 2
 }
@@ -86,7 +71,7 @@ func getNewPoi() form.Form {
 	best := 0.0
 	d := dis.CostDiscriminator{}
 	size := mat.Dim3{W: 13, H: 13, D: 13}
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 1000; i++ {
 		a := mat.NewArr3(mat.SqDim3(30))
 		p := gen.RndBasePlan(gen.RND, gen.RndEvolution())
 		f := p.Build(a, size)
@@ -96,7 +81,9 @@ func getNewPoi() form.Form {
 			best = score
 		}
 	}
-	return leader
+	t := form.Terrain(mat.SqDim3(32))
+	t.Inset(leader.Arr3, mat.Vec3{})
+	return t
 }
 
 func main() {
